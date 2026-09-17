@@ -33,8 +33,8 @@ something the docs don't say, or that it broke something and quietly repaired it
 All four of those are the information you actually needed.
 
 The contract here came out of running one agent under a planning chat on a real product.
-Every line is there because something went wrong without it. The centrepiece is
-the **handback** — nine fixed lines, the last of which is **Surprises**, numbered — and the
+Every line is there because something went wrong without it. The centrepiece is the
+**handback** — nine fixed lines, the last of which is **Surprises**, numbered — and the
 rule that makes it work: **flag, don't silently decide.**
 
 ## What a handback looks like
