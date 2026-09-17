@@ -32,8 +32,8 @@ file, that the test count went down by one, that it noticed the deploy pipeline 
 something the docs don't say, or that it broke something and quietly repaired it on the way.
 All four of those are the information you actually needed.
 
-The contract here came out of a few months of running one agent under a planning chat on a
-real product. Every line was added after an evening was lost without it. The centrepiece is
+The contract here came out of running one agent under a planning chat on a real product.
+Every line is there because something went wrong without it. The centrepiece is
 the **handback** — nine fixed lines, the last of which is **Surprises**, numbered — and the
 rule that makes it work: **flag, don't silently decide.**
 
