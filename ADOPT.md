@@ -12,8 +12,8 @@ instructions.
 ```
 You are adopting a standing set of behaviours for this repository: rules for every coding
 session, and a fixed HANDBACK block that ends every session that changes anything.
-It comes from a project where it has been in daily use for months; nothing in it is specific
-to that project except the placeholders in angle brackets, which you will fill from THIS repo.
+Nothing in it is specific to the project it came from except the placeholders in angle
+brackets, which you will fill from THIS repo.
 The template is the file CLAUDE.md.template in the package I have given you (or pasted below
 this prompt). Do the following in order.
 
