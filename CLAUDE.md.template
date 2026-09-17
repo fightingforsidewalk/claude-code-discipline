@@ -1,0 +1,183 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with code in this repository. It is
+read automatically at the start of every session in this repo. Everything here holds
+independent of any task's text — a task may add to it; nothing in a task removes it.
+
+*Template notes are in angle brackets. Fill them from THIS repo; delete a line rather than
+leave it vague. A rule that names a check that does not exist is worse than no rule.*
+
+## Scope — <this project> only (read this first)
+
+This repository is **<project>**. Work exclusively inside this repo <and its docs folder /
+vault at <path>>. Nothing else.
+
+**Never** read, search, open, edit, or reference any other project on this machine — in
+particular <sibling repos by name>. Do not `grep`/`rg`/glob across parent directories, do not
+`cd` out of this repo to "look around," and do not pull context from a sibling folder even
+when it looks like it holds a relevant example — that is the case this rule exists for, not
+an exception to it. If a task appears to require anything outside this repo, **STOP and ask**
+rather than exploring.
+
+<If some folders INSIDE the repo or docs are another role's working area, name them here as
+off-limits: read only a file there that the task names by exact path; never list or glob
+them; needing a second file is a stop-and-ask.>
+
+## Stack overview
+
+<One paragraph: frameworks, runtime, hosting, database, auth, external APIs — and which of
+them bill per call.>
+
+**Deploy targets and what "pushed" means for each:** <e.g. frontend auto-deploys from main ·
+api: push = deploy, treat "pushed" as shipping · worker X: manual deploy only · cron Y: own
+schedule.> **A routine deploy the human performs every time is never a step, a tail, a
+next action, or a question in a handback** — it is settled and out of scope.
+
+## Commands
+
+<The real commands, verified by running them once:>
+- build: `<cmd>` — <what it actually runs; e.g. "prebuild runs the test suite">
+- typecheck: `<cmd>`
+- tests: `<cmd>` — <count as of <date>, so a handback's number can be read against it>
+- <other gates: assertions, contract checks, fixture agreement>
+- **There is no <linter / other tool>.** <State plainly which common gate does NOT exist,
+  so no criterion ever names it.>
+
+## Architecture
+
+<The map a new session needs: the three to six files or modules that matter most, what
+each owns, and which are "core" — an engine, a schema, a payments path — so that a change
+there is called out separately in every handback.>
+
+## Database rules
+
+- **Show the SQL** for review before applying to live. Never apply to live and then review.
+- **Apply to live first**, then deploy the code that depends on it.
+- **A migration task has an internal stop** — "generate, show SQL, wait" — that survives
+  every other instruction, including "let it rip."
+- <Back-up rule: e.g. an encrypted dump to <location> before any migration, kept until the
+  migration is proven. A waiver is the human's ruling alone, recorded with its basis.>
+- <PII fields by name: never logged, never in error output.>
+- <Any invariant the schema enforces that a partial write would violate.>
+
+## Deploy gates
+
+After every **<target>** deploy: <the behavioural check — an endpoint that now rejects what
+it used to accept, or returns a field it did not>. "<Platform> says healthy" is not proof.
+
+After every **<target>** deploy: <the cheap habit-check that exists because of a real
+incident, with the date>.
+
+## Sources of truth
+
+- **<docs folder / vault>**: deep canonical docs. Decisions are captured there, not in chat.
+- **<tracker file>**: work items keyed <scheme>. Reference by ID. **Never mint an ID** —
+  the human issues them.
+- **When the docs and anyone's memory conflict, the docs win.**
+
+## Standing behaviors
+
+These hold **independent of any task's text**. A task may add to them; nothing in a task
+removes them.
+
+- **FLAG, DON'T SILENTLY DECIDE.** Anything the task did not anticipate — a divergence from
+  what it described, a judgment call, a scope edge — is numbered under Surprises with what you
+  did and why. Silently skipping and silently doing extra are equally wrong.
+- **DEVIATIONS ARE ARGUED.** If you do something a convention here says not to, or skip
+  something it says to do, the handback carries the *argument*, not just the fact.
+- **STOPS ARE HARD.** "Show X and wait" means nothing downstream of the stop runs before the
+  go — no "while I'm waiting." An internal stop survives every other instruction in the task,
+  including "let it rip."
+- **MIGRATIONS.** At the stop, the generated SQL is **diffed against the approved SQL line by
+  line** — not eyeballed, not summarised. A back-up waiver is void the moment the SQL is
+  non-additive in any respect (drop, rename, type change, constraint tightening, backfill):
+  take the back-up, do not re-ask.
+- **PROVE AT THE LAYER THAT ENFORCES.** A database constraint is proven with a **refused write
+  plus a valid-shape control that succeeds** — a typo'd probe refuses everything and proves
+  nothing — both rolled back. "The handler rejects it" is not "the database refuses it." Reach
+  the layer that enforces, and claim only that one. And an instrument's refusal is not a
+  measurement: a request a bot filter blocked, a page a cache answered, a scan a proxy
+  intercepted — each returns something shaped like a result. Report inconclusive and reach for
+  a different instrument rather than reading the refusal as the answer.
+- **BEHAVIOURAL CHECK.** Every deploy-touching handback names one, or states `none —
+  tests/docs only` with the reason. "Build succeeded" is never the check.
+- **SELF-CAUGHT ERRORS ARE REPORTED, not cleaned away.** If you broke something and fixed it
+  inside the run, it is numbered under Surprises. The near-miss is information; a tidy diff
+  that buries it loses that information.
+- **NEVER NAME A GATE THAT DOES NOT EXIST.** <This repo has no linter> — a criterion naming a
+  check that never runs closes on nothing, indistinguishably from passing. A gate is worth
+  exactly what its negative case can see.
+- **A GATE THAT FAILS SOFTLY IS WORSE THAN ONE THAT DOES NOT EXIST.** A step that warns and
+  carries on hands back an exit code that cannot tell success from silent failure, and unlike a
+  missing gate it prints something reassuring on the way past. Where a build or check can warn
+  rather than fail, the claim is what its output actually said — the line naming each file it
+  touched, the absence of the warning — never the exit code. <Name any step in this repo that
+  warns instead of failing.>
+- **NEVER REPRODUCE A SECRET.** Not in chat, not in a file, not in a handback, not in a log line
+  you paste back. Secrets are named by where they live — <the host's secret store> — never by
+  value. If one appears in output you are about to quote, redact it and say that you did. A
+  value printed once is a value to rotate, and saying so is far cheaper than the rotation.
+- **KNOW WHAT THE REPOSITORY PUBLISHES.** <Name the published directory, and say plainly whether
+  it is the repository root.> If the root is the document root of a deployed site, every file
+  anyone adds here is served on the internet by default — source, config, notes, and this file.
+  Before adding a file, know which side of that line it falls on, and settle it by fetching the
+  URL rather than by reading the build configuration. A site can score A+ on every header check
+  while serving its own source, because none of those checks ask what paths it returns.
+- **A BUILD THAT REWRITES TRACKED FILES IS NEVER RUN IN THE WORKING TREE.** <If the build mutates
+  sources in place — substitution, codegen, formatting — say so here and name the files.>
+  Running it locally dirties tracked sources and invites committing generated values over the
+  placeholders every later build depends on. Run it in a throwaway copy, and if you run it here
+  anyway, restore the affected files and prove the tree is clean with `git status --porcelain`.
+- **CITE THE CODE, NOT THE LINE NUMBER; NAME THE INVARIANT, NOT THE COUNT.** A rule that says
+  "lines 22 to 24" or "five files" is wrong the first time someone edits above it or adds a
+  page, and the likely repair is a reader lowering the standard to match what they see. Name
+  the branch, the function, the property that has to hold.
+- **NEVER KILL A PROCESS YOU DID NOT START.** No `pkill`/`killall` by name. Browser or
+  viewport checks use a headless browser launched and closed by handle inside the script; the
+  human's own browsers are never launched, attached to, or terminated. Anything you launch —
+  a dev server included — you track and close by handle. **A port or process conflict is a
+  STOP-and-report, never something to clear by force.**
+- **A STOP GUARD READS `git status --porcelain`**, never "no other file is modified or staged"
+  — the second phrasing cannot see untracked files, so a stray directory passes the gate.
+- **A WARNING IS PLACED WHERE THE MISTAKE IS MADE**, not where the incident was filed. A
+  hazard recorded in a changelog will be re-tripped by whoever reaches the command; the rule
+  goes next to the command.
+- <Repo-specific: e.g. "A change to app/globals.css is verified by `npm run build`
+  compiling — nothing else parses CSS." Add each with the date and the incident.>
+- **CLOSING THE TASK.** One coherent commit, message in the repo's existing style, then push,
+  then **verify the hash on `origin/<main>`** before reporting it pushed.
+
+## Handback contract (always do this last)
+
+Every session that changes anything ends with a fenced handback — one copy-pasteable block
+the human hands straight back to the project's planning chat. It is a status relay, not a
+narrative; keep it tight and factual.
+
+    === HANDBACK → <project> planning chat ===
+    Task:          <one line — what this work was>
+    Status:        done | blocked-at-step-N | needs-review
+    Files changed: <path — one-line why>   (repeat per file; "none" if no edits)
+    Build+tests:   <the NUMBERS — "<build> exit 0 · <tests> N passed 0 failed" ·
+                    <core file> in diff? yes/no · or "not run (why)">
+    Git:           <hash + "pushed, verified on origin/<main>" | "NOT pushed — <why>">
+    Deploy:        <what the push sets in motion per target, and what you can and cannot
+                    observe from this seat>
+    Verified:      <what you PROVED, at the layer you proved it — live DB | live endpoint |
+                    library | render — never phrased to imply a stronger layer>
+    Next:          <who acts, on what — or "nothing">
+    Surprises:     <numbered; per FLAG, DON'T SILENTLY DECIDE — "none" if the run was clean>
+    === END HANDBACK ===
+
+Line notes, where the shape is not self-evident:
+
+- **Build+tests** carries the numbers, not adjectives. Always say whether a core file is in
+  the diff — a green board over an untouched core and a green board over a changed one are
+  different facts.
+- **Git** is a two-part claim: the hash, *and* that you saw it on the remote. Not pushed →
+  say NOT pushed, and why.
+- **Deploy** states what the push sets in motion and, separately, what you can and cannot
+  observe from a CLI seat. <If production is not reachable from here, say so rather than
+  implying a check.> Never list a routine deploy as a step.
+- **Verified** is a layer claim. Name the layer you actually reached and stop there.
+- **Surprises** is where the value is. A handback with an honest Surprises section is worth
+  more than a clean one.
