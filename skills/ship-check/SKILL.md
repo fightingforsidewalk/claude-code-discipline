@@ -29,8 +29,11 @@ the root of this package.
    `LICENSE` present and its holder intentional. Every referenced file exists, README links
    resolve, the layout section matches the tree's visible files — dotfiles and repo
    housekeeping (`.gitignore`, `.editorconfig`, `.github/` and the like) are not listed there
-   — a section number cited in one file exists in the other. Help text and docstrings match
-   current behaviour.
+   — a section number cited in one file exists in the other. Front-matter parses: a Markdown
+   file with YAML front-matter goes through a parser before packaging, never an eyeball, and a
+   `description:` value carrying a colon-space is quoted, or YAML reads the colon as a nested
+   key and a strict loader refuses the file. Help text and docstrings match current
+   behaviour.
 
 4. WRITES AND FAILURE. Atomic writes: temp file then replace. Assert invariants before
    mutating, so a failed assertion leaves the file untouched. Fail loudly with a reason a
