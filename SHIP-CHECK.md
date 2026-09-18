@@ -110,6 +110,9 @@ bare word is useless.
 - Every referenced file exists; README links resolve; a layout section matches the tree's
   visible files — dotfiles and repo housekeeping (`.gitignore`, `.editorconfig`, `.github/`
   and the like) are not listed there; a section number cited in one file exists in the other.
+- **Front-matter parses.** A Markdown file with YAML front-matter goes through a parser
+  before packaging, never an eyeball: a `description:` value carrying a colon-space is
+  quoted, or YAML reads the colon as a nested key and a strict loader refuses the file.
 - Scripts have a docstring or `--help` matching what they do **now**, not two edits ago.
 
 ### 4. Writes and failure

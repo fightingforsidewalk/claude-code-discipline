@@ -1,6 +1,6 @@
 ---
 name: ship-check
-description: Pre-ship checklist for any script, tool, or repo the agent writes or packages, run before code leaves the session and before the handback is written: path traversal, command injection, secrets and names, placeholders, .gitignore, license, atomic writes, and proof that every guard has been seen to fail. Use it whenever a session is about to hand back a change that ships executable code, and name the sections that did not apply.
+description: "Pre-ship checklist for any script, tool, or repo the agent writes or packages, run before code leaves the session and before the handback is written: path traversal, command injection, secrets and names, placeholders, .gitignore, license, atomic writes, and proof that every guard has been seen to fail. Use it whenever a session is about to hand back a change that ships executable code, and name the sections that did not apply."
 ---
 
 # Ship check
