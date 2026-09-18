@@ -144,6 +144,11 @@ removes them.
   goes next to the command.
 - <Repo-specific: e.g. "A change to app/globals.css is verified by `npm run build`
   compiling — nothing else parses CSS." Add each with the date and the incident.>
+- **SHIP-CHECK BEFORE THE HANDBACK.** Any change that ships executable code runs the check
+  in `skills/ship-check/SKILL.md` on the final tree, and the handback states the result:
+  what was fixed, or "clean" followed by which sections did not apply and why. Never a bare
+  "clean". When the claim is that a defect is fixed, the red step comes first: reproduce,
+  then fix, then show the refusal.
 - **CLOSING THE TASK.** One coherent commit, message in the repo's existing style, then push,
   then **verify the hash on `origin/<main>`** before reporting it pushed.
 

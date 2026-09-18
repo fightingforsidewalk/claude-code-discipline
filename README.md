@@ -3,7 +3,7 @@
 **A working contract between a planning chat, a coding agent, and a human who never has to
 read a diff.**
 
-Three pieces, all plain Markdown:
+Four pieces, all plain Markdown:
 
 - **`CLAUDE.md.template`** — what the coding agent reads at the start of every session: scope
   walls, the real commands, the gates that exist (and the ones that don't), standing
@@ -12,9 +12,13 @@ Three pieces, all plain Markdown:
   actions, docs by filename, acceptance as observables, stops as steps.
 - **`FEEDBACK-LOOP.md`** — how the planning chat reads what comes back, and everything the
   human is never asked to do.
+- **`SHIP-CHECK.md`** — what the agent runs on its own output before the handback is written,
+  so the handback's sentences are reports rather than feelings: reproduce a defect before
+  fixing it, show every guard refusing, name what did not apply.
 
-Plus **`ADOPT.md`**, one prompt that installs the agent's side in any repo, and a Claude
-**skill** (`skills/coding-agent-discipline/`) for the planning chat's side.
+Plus **`ADOPT.md`**, one prompt that installs the agent's side in any repo, and two Claude
+**skills**: `skills/coding-agent-discipline/` for the planning chat's side, and
+`skills/ship-check/` for the agent's pre-ship check.
 
 Companion repos: **[skill-claude-relay](https://github.com/fightingforsidewalk/skill-claude-relay)**
 (the mailbox and operating model for several chats on one project) and
@@ -82,6 +86,9 @@ full version and what the planning chat did with it.
 - **Only the human mints identifiers.** A handback header is not an identifier.
 - **The ask is the last thing trimmed.** Every reply that needs the human ends with a
   numbered *Needs you* list.
+- **Reproduce before you fix.** A green result after the fix cannot tell "the guard works"
+  from "the defect was never there". Show the red step, then the fix, then the refusal, and
+  say which sections of the check did not apply rather than reporting a bare "clean".
 
 ## Quick start
 
@@ -92,6 +99,9 @@ full version and what the planning chat did with it.
    `SKILL.md` into the project instructions).
 3. Write the first box from [`BOX.md`](BOX.md). Read the first handback with
    [`FEEDBACK-LOOP.md`](FEEDBACK-LOOP.md) open.
+4. When a handback says a defect is fixed or a guard works, expect the shape in
+   [`SHIP-CHECK.md`](SHIP-CHECK.md): the red step, the refusal, and the sections that did
+   not apply.
 
 ## Layout
 
@@ -102,8 +112,10 @@ CLAUDE.md.template            scope · stack · commands · architecture · data
                               sources of truth · standing behaviours · handback contract
 BOX.md                        how to write a task for the agent, with an example
 FEEDBACK-LOOP.md              how to read what comes back; what the human never does
+SHIP-CHECK.md                 the agent's check on its own output before the handback, with the reasoning
 examples/handback-example.md  a real handback and its disposition
 skills/coding-agent-discipline/SKILL.md   the planning chat's side, as a Claude skill
+skills/ship-check/SKILL.md    the agent's pre-ship check, as a Claude skill (the canonical short form)
 LICENSE                       CC0 1.0
 ```
 
