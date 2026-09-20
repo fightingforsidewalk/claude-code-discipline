@@ -3,6 +3,9 @@
 **A working contract between a planning chat, a coding agent, and a human who never has to
 read a diff.**
 
+*Want it in your own repo? Paste [`ADOPT.md`](ADOPT.md) into a Claude that can see the repo
+and it sets the agent's side up for you.*
+
 Four pieces, all plain Markdown:
 
 - **`CLAUDE.md.template`** — what the coding agent reads at the start of every session: scope
@@ -20,11 +23,19 @@ Plus **`ADOPT.md`**, one prompt that installs the agent's side in any repo, and 
 **skills**: `skills/coding-agent-discipline/` for the planning chat's side, and
 `skills/ship-check/` for the agent's pre-ship check.
 
-Companion repos: **[skill-claude-relay](https://github.com/fightingforsidewalk/skill-claude-relay)**
-(the mailbox and operating model for several chats on one project) and
-**[skill-canonical-tracker](https://github.com/fightingforsidewalk/skill-canonical-tracker)**
-(one record, many surfaces, a check that proves they agree). This one is the third leg: how
-code gets written and reported.
+## How this fits with the other two
+
+Three repositories, same work, different job:
+
+- **Coordination** — [claude-relay](https://github.com/fightingforsidewalk/skill-claude-relay): how several chats on one project reach each
+  other without you carrying the messages between them.
+- **The record** — [canonical-tracker](https://github.com/fightingforsidewalk/skill-canonical-tracker): one record as the truth, every derived
+  view patched from it, and a check that fails when they disagree.
+- **Execution** — [claude-code-discipline](https://github.com/fightingforsidewalk/claude-code-discipline): how a coding agent works on its own and
+  reports back in a form you can check without reading the diff.
+
+This repo is the execution one. Each works on its own; together they cover a project from
+the first instruction to the last commit.
 
 ---
 
