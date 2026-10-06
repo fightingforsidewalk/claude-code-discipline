@@ -50,6 +50,50 @@ this prompt). Do the following in order.
 6. END WITH "NEEDS YOU": a numbered list of anything still on me. If nothing, "Needs you: nothing."
 ```
 
+## Updating a repo that already adopted it
+
+When this package changes, bring a repo's `CLAUDE.md` up to date with the box below, in a
+Claude Code session opened in that repo. Adoption adds and removes nothing; an update has to
+replace, because a reworded rule kept alongside its old wording is two rules. So the update
+takes the template's current text for every standing behaviour and the handback contract,
+keeps everything specific to the repo, and stops to show you the diff before committing.
+
+`CLAUDE.md` carries no version line. Which package commit a repo matches is recorded in the
+commit message that brought it in, where git keeps it honest, rather than in a marker in the
+file that someone can bump without the change behind it.
+
+```
+=== BOX: update CLAUDE.md to the current coding discipline ===
+Repo:       <absolute path of the repo>
+Key:        no key, discipline update
+Goal:       This repo's CLAUDE.md carries the package's current standing behaviours and
+            handback contract, with every repo-specific rule kept.
+Context:    The package is at <local clone path> (git pull there first). If it is not on
+            this machine, read https://github.com/fightingforsidewalk/claude-code-discipline
+            instead. Read only the package and this repo.
+Scope IN:   CLAUDE.md; .claude/skills/ship-check/SKILL.md
+Scope OUT:  no other file; no --force
+Steps:      1. confirm the repo root matches Repo; pull the package; note its commit hash
+            2. find the last commit here whose message names a package commit, if any, and
+               diff the package from that commit to now; otherwise compare against the
+               whole template
+            3. for each standing behaviour and the handback contract, take the template's
+               current wording; keep every rule, line note and section specific to this
+               repo; where this file has its own version of a rule the template changed,
+               show both and recommend one
+            4. recopy skills/ship-check/SKILL.md into .claude/skills/ship-check/
+            STOP: show the diff, what was replaced, what was kept as repo-specific, and
+            any rule needing a choice. Wait for go.
+            5. commit both files by name with a message naming the package commit, e.g.
+               "Coding sessions: update to claude-code-discipline <hash>"; push; verify the
+               hash on the remote
+Docs:       CLAUDE.md is the doc
+Acceptance: - hash on the remote; git status --porcelain clean
+            - the commit message names the package commit used
+            - handback in the shape the updated CLAUDE.md specifies, Surprises numbered
+=== END BOX ===
+```
+
 ## After it runs
 
 From then on, every session in that repo reads the contract automatically. The first real
