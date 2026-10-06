@@ -20,7 +20,7 @@ Scope OUT:  <what it must not touch, stated as ACTIONS not roles: "write nothing
              docs/system/" — never "that belongs to the review chat">
 Steps:      1. <...>
             2. <...>
-            STOP — <show X and wait for go>   ← only where a gate demands it
+            STOP — <show X and wait for approval>   ← only where a gate demands it
             3. <...>
 Docs:       <filename — the change> | none — <reason>
 Acceptance: - <an observable: an endpoint that now rejects what it used to accept; a test

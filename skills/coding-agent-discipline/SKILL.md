@@ -54,7 +54,7 @@ Full guidance: `FEEDBACK-LOOP.md`.
 
 Paste `ADOPT.md`'s prompt into a Claude Code session opened *in* the target repo. It reads
 the stack, fills the template's placeholders from what it finds, shows the diff, waits for
-the go, commits, and proves the contract with one handback about the change itself.
+approval, commits, and proves the contract with one handback about the change itself.
 
 ## The rules underneath, cited by name
 

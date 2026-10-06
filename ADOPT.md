@@ -38,10 +38,10 @@ this prompt). Do the following in order.
    verbatim except for the placeholders.
 
 4. SHOW ME THE DIFF to CLAUDE.md before committing it. List every placeholder you filled and
-   what you filled it with, and every line you deleted as not-applicable. Wait for my go.
-   Do not commit, push, or run anything else before the go.
+   what you filled it with, and every line you deleted as not-applicable. Wait for my approval.
+   Do not commit, push, or run anything else before I approve.
 
-5. AFTER MY GO: commit it (message in this repo's existing style — read the last ten commit
+5. AFTER I APPROVE: commit it (message in this repo's existing style — read the last ten commit
    messages first), push, verify the hash on the remote — and end this session with a
    handback in exactly the shape the new CLAUDE.md specifies, describing this change. That
    handback is the proof the contract is installed; if it is missing a line, the installation
@@ -83,7 +83,7 @@ Steps:      1. confirm the repo root matches Repo; pull the package; note its co
                show both and recommend one
             4. recopy skills/ship-check/SKILL.md into .claude/skills/ship-check/
             STOP: show the diff, what was replaced, what was kept as repo-specific, and
-            any rule needing a choice. Wait for go.
+            any rule needing a choice. Wait for approval.
             5. commit both files by name with a message naming the package commit, e.g.
                "Coding sessions: update to claude-code-discipline <hash>"; push; verify the
                hash on the remote
