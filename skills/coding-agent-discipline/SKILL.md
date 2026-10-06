@@ -15,7 +15,8 @@ prompt that installs it.
 
 ## Writing a box
 
-Every box has: **Key** (a tracker ID, or *no key* with the reason) · **Goal** (what is true
+Every box has: **Repo** (the repository root it runs in, as a path, first line under the
+title) · **Key** (a tracker ID, or *no key* with the reason) · **Goal** (what is true
 when done) · **Context** (facts the agent cannot find in the repo — three lines is long) ·
 **Scope IN / Scope OUT** (out-of-scope stated as forbidden *actions*, never as another role's
 name) · **Steps** with any **STOP** written as a step · **Docs** by filename or *none* with

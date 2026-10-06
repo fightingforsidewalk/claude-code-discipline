@@ -10,6 +10,7 @@ it is written.
 
 ```
 === BOX: <short title> ===
+Repo:       <absolute path of the repository root this box runs in, e.g. ~/code/my-app>
 Key:        <tracker ID> | no key — <why: momentary fix / note on <ID> / not deferred>
 Goal:       <one or two lines — what is true when this is done>
 Context:    <the two or three facts the agent needs and would not find by reading the repo:
@@ -31,6 +32,11 @@ Acceptance: - <an observable: an endpoint that now rejects what it used to accep
 
 ## The rules
 
+- **Repo first, always.** The first line under the title names the repository root the box
+  runs in, as a path. The agent checks it before its first command and stops if it is
+  somewhere else. It removes the commonest silent failure, a box run in the wrong clone or a
+  sibling repo, and it is how the agent knows the paste is a task for this repo, so the box
+  needs no further preamble to be acted on.
 - **Key or no key, stated.** A box that names no key invites the agent to invent one. "No key"
   is a valid answer and must be written; the reason says which disposition it is.
 - **Gate by risk.** Core logic, migrations, security, and money get a design handback *before*
@@ -64,6 +70,7 @@ Acceptance: - <an observable: an endpoint that now rejects what it used to accep
 
 ```
 === BOX: bump qs per compliance ruling ===
+Repo:       ~/code/my-app
 Key:        no key — dependency bump ruled by compliance; joins no work item
 Goal:       qs is at or above 6.16.0 everywhere it appears; nothing else moves.
 Context:    Two moderate advisories on the dev-only chain. Compliance ruled bump-not-accept.

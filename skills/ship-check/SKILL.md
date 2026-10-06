@@ -9,7 +9,8 @@ Run this before any script, tool, or repo you wrote leaves your hands, and befor
 handback is written. State the result in the handback, never as a bare "clean": what was
 fixed, or "clean" followed by which sections did not apply and why. A check run silently is
 indistinguishable from one skipped. The reasoning behind each item is in `SHIP-CHECK.md` at
-the root of this package.
+the root of the claude-code-discipline package
+(https://github.com/fightingforsidewalk/claude-code-discipline).
 
 1. INPUT THAT BECOMES SOMETHING ELSE. Paths: allow-list the characters AND resolve-and-contain
    the final path, tested with `../../x`, `x/../../y`, `..`. Shell: argument lists, never a
